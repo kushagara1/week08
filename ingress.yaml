@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: main-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-w08e1
+            port:
+              number: 80
+      - path: /api/orders
+        pathType: Prefix
+        backend:
+          service:
+            name: order-service-w08e1
+            port:
+              number: 8001
+      - path: /api/products
+        pathType: Prefix
+        backend:
+          service:
+            name: product-service-w08e1
+            port:
+              number: 8000
